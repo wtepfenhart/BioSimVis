@@ -1,10 +1,12 @@
+
 import numpy as np
 import tensorflow as tf
 from PIL import Image
+import time
 
-#It is mainly for predicting the image of face and output the probaility and the index of label
+
+
 keep_prob = tf.placeholder(tf.float32)
-
 images=tf.placeholder(dtype=tf.float32,shape=[None,48,48,1])
 
 
@@ -59,24 +61,44 @@ def expression_cnn():
     return out
 
 
+str=['Angry','Disgust', 'Fear','Happy', 'sad','Surprise','Neutral']
 
+def convertImage(image):
+    temp_image = Image.open(image).convert('L')
+    temp_image = temp_image.resize((48, 48), Image.ANTIALIAS)
+    temp_image = np.asanyarray(temp_image) / 255.0
+    temp_image = temp_image.reshape([-1, 48, 48, 1])
+    return temp_image;
 
-def Verify(image):
-    out = expression_cnn()
-    probability = tf.nn.softmax(out)
-    predict_val,predict_index_val= tf.nn.top_k(probability,k=1)
-    temp_image=Image.open(image).convert('L')
-    temp_image=temp_image.resize((48,48),Image.ANTIALIAS)
-    temp_image=np.asanyarray(temp_image)/255.0
-    temp_image=temp_image.reshape([-1,48,48,1])
+out = expression_cnn()
+probability = tf.nn.softmax(out)
+predict_val, predict_index_val = tf.nn.top_k(probability, k=7)
+# def Verifyemotion(image):
+
+    # sess=tf.Session
+def Verifyemotion(image):
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
         saver=tf.train.Saver()
-        ckpt=tf.train.latest_checkpoint('./model/')
+        ckpt=tf.train.latest_checkpoint('../model/{modelflodername}/')
+        print(ckpt)
         if ckpt:
             saver.restore(sess,ckpt)
-        predict_val,predict_index_val=sess.run([predict_val,predict_index_val],feed_dict={images:temp_image,keep_prob:1})
-    print(predict_val,predict_index_val)
+            temp_image=convertImage(image)
+            predict_val, predict_index_val = tf.nn.top_k(probability, k=7)
+            predict_val,predict_index_val=sess.run([predict_val,predict_index_val],feed_dict={images:temp_image,keep_prob:1})
+            return str[predict_index_val[0][0]]
 
 
-Verify('test.png')
+
+# print(time.asctime( time.localtime(time.time()) ))
+# Verifyemotion('1.jpg')
+# print(time.asctime( time.localtime(time.time()) ))
+# Verifyemotion('1.jpg')
+# print(time.asctime( time.localtime(time.time()) ))
+# Verify('1.jpg')
+# print(time.asctime( time.localtime(time.time()) ))
+# Verify('1.jpg')
+# print(time.asctime( time.localtime(time.time()) ))
+# Verify('1.jpg')
+# print(time.asctime( time.localtime(time.time()) ))

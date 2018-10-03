@@ -8,11 +8,15 @@ import pandas as pd
 
 file_time = datetime.datetime.fromtimestamp(time.time()).strftime('%H-%M-%S')
 
+#set the input tensor and the label tensor
 X = tf.placeholder(tf.float32, [None, 48 * 48])
 Y = tf.placeholder(tf.float32, [None, 7])
 
+#control the dropout rate after the pool layer
 keep_prob = tf.placeholder(tf.float32)
 
+
+#set the train array
 train_data_x = []
 train_data_y = []
 test_data_x = []
@@ -23,27 +27,29 @@ data = pd.read_csv('./dataset/fer2013.csv', dtype='a')
 label = np.array(data['emotion'])
 image_data = np.array(data['pixels'])
 data_type = np.array(data['Usage'])
-# print(image_data)
+
 N_sample = label.size
 Face_data = np.zeros((N_sample, 48 * 48))
 Face_label = np.zeros((N_sample, 7), dtype=int)
 for i in range(N_sample):
     x = image_data[i]
     x = np.fromstring(x, dtype=float, sep=' ')
-    # Normalized
-    # np.seterr(all='ignore')
+#   Normalize the image
     x /= 256
     Face_data[i] = x
     Face_label[i, int(label[i])] = 1
 
+#divide the dateset ,part of them is used to train and part of them is used to validate
 train_data_x = Face_data[0:34000, :]
 train_data_y = Face_label[0:34000, :]
 test_data_x = Face_data[34001:, :]
 test_data_y = Face_label[34001:, :]
 
+#set the frequency of updating the weight and b
 batch_size = 60
 
 num_batch = len(train_data_x) // batch_size
+
 
 test_batch_size = (len(test_data_x) // 100)
 
@@ -51,7 +57,8 @@ test_batch_size = (len(test_data_x) // 100)
 
 def expression_cnn():
     x = tf.reshape(X, shape=[-1, 48, 48, 1], )
-    # 3 conv layers
+    # 6 conv layers and a fully connect layer
+    #set the conventional kernel and the Number of neurons（64）
     w_c1 = tf.Variable(tf.random_normal([7, 7, 1, 64], stddev=0.01))
     b_c1 = tf.Variable(tf.zeros([64]))
     conv1 = tf.nn.relu(tf.nn.bias_add(tf.nn.conv2d(x, w_c1, strides=[1, 1, 1, 1], padding='SAME'), b_c1))
@@ -109,13 +116,15 @@ def expression_cnn():
 def train():
     out = expression_cnn()
     loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=out, labels=Y))
+    #set the method of learning rate and the Update strategy
     optimizer = tf.train.AdamOptimizer(learning_rate=0.00001).minimize(loss)
     # global_step = tf.get_variable("step", [], initializer=tf.constant_initializer(0.0), trainable=False)
     # rate = tf.train.exponential_decay(5e-5, global_step, decay_steps=500, decay_rate=0.97, staircase=True)
     # optimizer = tf.train.AdamOptimizer(learning_rate=rate).minimize(loss, global_step=global_step)
+    #caculate the accuracy of the output
     accuracy = tf.reduce_mean(tf.cast(tf.equal(tf.argmax(out, 1), tf.argmax(Y, 1)), tf.float32))
 
-    # TensorBoard
+    # TensorBoard set the tensorboard lable which is used to show the changes in chart
     tf.summary.scalar("loss", loss)
     tf.summary.scalar("accuracy", accuracy)
     merged_summary_op = tf.summary.merge_all()
@@ -131,10 +140,10 @@ def train():
             for i in range(num_batch):
                 batch_x = train_data_x[i * batch_size: (i + 1) * batch_size]
                 batch_y = train_data_y[i * batch_size: (i + 1) * batch_size]
-                # print(sess.run(tf.shape(batch_y)))
+#         caculate the accauacy and the loss
                 _, loss_, acc_, = sess.run([optimizer, loss, accuracy],
                                            feed_dict={X: batch_x, Y: batch_y, keep_prob: 0.5})
-                # 每次迭代都保存日志
+                # set the log for every steps
                 # summary_writer.add_summary(summary, e * num_batch + i)
                 print(e * num_batch + i, loss_, acc_, num_batch, e, )
                 if (e * num_batch + i) % 100 == 0:
