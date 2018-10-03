@@ -5,6 +5,7 @@ A expression recognition experiment based on CNN model(6Layers),and the model ge
 
 
 ## Real_time Result
+![Aaron Swartz](https://github.com/wtepfenhart/BioSimVis/raw/master/Expression%20Recognition/First_test/result.jpg)
 
-
-
+## RDependency package
+  Dlib (http://dlib.net/)
