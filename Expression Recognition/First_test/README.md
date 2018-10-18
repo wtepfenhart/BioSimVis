@@ -1,14 +1,14 @@
 # Facial expression recognition
 A expression recognition experiment based on CNN model(6Layers),and the model get  60% recognize rate on test dataset of fer2013.
 
-## Modelesult
+## ModelResult
 
 
 ## Real_time Result
-![Aaron Swartz](https://github.com/wtepfenhart/BioSimVis/raw/master/Expression%20Recognition/First_test/result.jpg)
+![AaronSwartz](https://github.com/wtepfenhart/BioSimVis/raw/master/Expression%20Recognition/First_test/result.jpg)
 
 ## Dependency package
-1. Dlib (http://dlib.net/)    install the Dlib "Link"
+1. Dlib (http://dlib.net/)    The way will be released in the wiki
 2. Opencv
 3. Tensorflow
 4. Numpy
@@ -23,5 +23,5 @@ A expression recognition experiment based on CNN model(6Layers),and the model ge
 (This is need to be changed)
 5. You need to press "s" to drive the program to recognize(this will be modified in the next version)
 
- # The process of creating the programme
- ##
+# The process of creating the program
+## 2.1 
