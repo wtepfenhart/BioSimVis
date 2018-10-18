@@ -3,10 +3,6 @@ A expression recognition experiment based on CNN model(6Layers),and the model ge
 
 ## Modelesult
 
-
-## Real_time Result
-![Aaron Swartz](https://github.com/wtepfenhart/BioSimVis/raw/master/Expression%20Recognition/First_test/result.jpg)
-
 ## Dependency package
 1. Dlib (http://dlib.net/)    install the Dlib "Link"
 2. Opencv
@@ -16,7 +12,7 @@ A expression recognition experiment based on CNN model(6Layers),and the model ge
 
 ## Deploy the project
 
-1. Download the model from Link() '\n'
+1. Download the model from Link( ) '\n'
 2. Place it in the 'model/' (you also need to rewrite the name of the model or the file path if you changed)
 3. Install all other packages that is necessary
 4. when the first time you use the project you also need to create a new folder to save the image
