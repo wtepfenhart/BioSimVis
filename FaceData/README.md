@@ -39,7 +39,7 @@ We try to extract the image of faces and named them by the frameid
       vc.release()
 ```
   ![Image](https://github.com/wtepfenhart/BioSimVis/blob/master/ExperientImage/FrameImage.png)
-      2.  ffmpeg [Install]( http://blog.gregzaal.com/how-to-install-ffmpeg-on-windows/ ):
+      2.  ffmpeg [Introduction Website]( http://blog.gregzaal.com/how-to-install-ffmpeg-on-windows/ ):
 
   ```
   ffmpeg -i input.mov -r 25 output_%04d.png
