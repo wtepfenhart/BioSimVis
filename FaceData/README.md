@@ -37,7 +37,7 @@ We try to extract the image of faces and named them by the frameid
       	cv2.waitKey(1)
       vc.release()
   ```
-
+  ![Frames]()
       2.    ffmpeg [Install]()
 
   ```
@@ -144,3 +144,5 @@ We try to extract the image of faces and named them by the frameid
         return frameid_coordinate_charname
 
   ```
+
+  ## Result
