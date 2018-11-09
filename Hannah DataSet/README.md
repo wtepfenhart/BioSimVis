@@ -28,6 +28,7 @@ vc.release()
 
 ```
 The main function of code above split the video into frames and save the frame in the form of '.jpg' name by the position of frame in the video.
+code
 
 ### 2.Read the annotation labels
 ```
