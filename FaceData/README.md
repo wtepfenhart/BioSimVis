@@ -19,7 +19,6 @@ We try to extract the image of faces and named them by the frameid
 
   ### Convert from film to frames
     1.  Python
-
 ```
   import cv2
       vc=cv2.VideoCapture("vedionamepath")
