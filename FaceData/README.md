@@ -37,7 +37,7 @@ We try to extract the image of faces and named them by the frameid
       	cv2.waitKey(1)
       vc.release()
   ```
-  ![Frames]()
+  ![Frames](https://github.com/wtepfenhart/BioSimVis/blob/master/ExperientImage/FrameImage.png)
       2.    ffmpeg [Install]()
 
   ```
@@ -146,3 +146,4 @@ We try to extract the image of faces and named them by the frameid
   ```
 
   ## Result
+![FaceImage](https://github.com/wtepfenhart/BioSimVis/blob/master/ExperientImage/FaceImage.png)
