@@ -77,7 +77,7 @@ We try to extract the image of faces and named them by the frameid
     * Target:
       Save the face image in the folder and named by the frameid
   2. Make the cast table :
-  [image](https://github.com/wtepfenhart/BioSimVis/blob/master/ExperientImage/face_extract_cast.jpg)
+  ![image](https://github.com/wtepfenhart/BioSimVis/blob/master/ExperientImage/face_extract_cast.jpg)
         frameid | x | Y | w | H | acotrname
 
   ```
