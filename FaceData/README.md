@@ -81,70 +81,70 @@ We try to extract the image of faces and named them by the frameid
   ![image](https://github.com/wtepfenhart/BioSimVis/blob/master/ExperientImage/face_extract_cast.jpg)
         frameid | x | Y | w | H | acotrname
 
-  ```
-    # return matrix frameid  | x | Y | W | H | Trackid
-    def readAnnotation():
+```
+  # return matrix frameid  | x | Y | W | H | Trackid
+  def readAnnotation():
 
-        annotation = open(base_path+'\\resources\hannahDataset\hannah_video_faces.txt', "r")
+      annotation = open(base_path+'\\resources\hannahDataset\hannah_video_faces.txt', "r")
 
-        LableContent = [[0 for col in range(6)] for row in range(202178)]
-        i = 0
-        for eachline in annotation:
-            Labs = eachline.split(('\t'), 6)
-            for j in range(6):
-                if j == 5:
-                    LableContent[i][j] = Labs[5].split('\n', 2)[0]
-                else:
-                    LableContent[i][j] = Labs[j]
-            i = i + 1
-        annotation.close()
-        return LableContent
+      LableContent = [[0 for col in range(6)] for row in range(202178)]
+      i = 0
+      for eachline in annotation:
+          Labs = eachline.split(('\t'), 6)
+          for j in range(6):
+              if j == 5:
+                  LableContent[i][j] = Labs[5].split('\n', 2)[0]
+              else:
+                  LableContent[i][j] = Labs[j]
+          i = i + 1
+      annotation.close()
+      return LableContent
 
-    def frameid_trackid_charname():
-        CharidFile=open(base_path+'\\resources\hannahDataset\hannah_video_tracks.txt',"r")
-        AcotrNamefile=open(base_path+'\\resources\hannahDataset\hannah_cast.txt',"r")
-        Charid=[[0 for col in range (3)] for row in range(2002)]
-        Acotranme=[[0 for col in range (3)] for row in range(254)]
-        frameid_coordinate_charname=[[0 for col in range (6)] for row in range(202178)]
-        i = 0
+  def frameid_trackid_charname():
+      CharidFile=open(base_path+'\\resources\hannahDataset\hannah_video_tracks.txt',"r")
+      AcotrNamefile=open(base_path+'\\resources\hannahDataset\hannah_cast.txt',"r")
+      Charid=[[0 for col in range (3)] for row in range(2002)]
+      Acotranme=[[0 for col in range (3)] for row in range(254)]
+      frameid_coordinate_charname=[[0 for col in range (6)] for row in range(202178)]
+      i = 0
 
-    # read the Labs() Charid  Trackid  ||  ChairId  || comment
-        for eachline in CharidFile:
-            Labs=eachline.split(('\t'),3)
-            Charid[i][0] = Labs[0]
-            if (len(Labs)==2):
-                Charid[i][1] = Labs[1].split('\n', 2)[0]
-            else:
-                Charid[i][1] = Labs[1]
-            if (len(Labs)==3):
-                Charid[i][2] = Labs[2].split('\n', 2)[0]
-            i=i+1
+  # read the Labs() Charid  Trackid  ||  ChairId  || comment
+      for eachline in CharidFile:
+          Labs=eachline.split(('\t'),3)
+          Charid[i][0] = Labs[0]
+          if (len(Labs)==2):
+              Charid[i][1] = Labs[1].split('\n', 2)[0]
+          else:
+              Charid[i][1] = Labs[1]
+          if (len(Labs)==3):
+              Charid[i][2] = Labs[2].split('\n', 2)[0]
+          i=i+1
 
-    # read  actorname  ChairID  || charname  ||   actorname
-        n=0
-        for eachline in AcotrNamefile:
-            Labs=eachline.split(('\t'),3)
-            Acotranme[n][0] = Labs[0]
-            if (len(Labs)==2):
-                Acotranme[n][1] = Labs[1].split('\n', 2)[0]
-            else:
-                Acotranme[n][1] = Labs[1]
-            if (len(Labs)==3):
-                Acotranme[n][2] = Labs[2].split('\n', 2)[0]
-            n=n+1
-    # read  frameid || coordinate || actorname
-        frameid_coordinate = readAnnotation()
-        for i in range(202178):
-            for j in range(5):
-                frameid_coordinate_charname[i][j]=frameid_coordinate[i][j]
-            trackid=int(frameid_coordinate[i][5])
-            charid=int(Charid[trackid-1][1])
-            actorname=Acotranme[charid-1][1]
-            frameid_coordinate_charname[i][5]=actorname
+  # read  actorname  ChairID  || charname  ||   actorname
+      n=0
+      for eachline in AcotrNamefile:
+          Labs=eachline.split(('\t'),3)
+          Acotranme[n][0] = Labs[0]
+          if (len(Labs)==2):
+              Acotranme[n][1] = Labs[1].split('\n', 2)[0]
+          else:
+              Acotranme[n][1] = Labs[1]
+          if (len(Labs)==3):
+              Acotranme[n][2] = Labs[2].split('\n', 2)[0]
+          n=n+1
+  # read  frameid || coordinate || actorname
+      frameid_coordinate = readAnnotation()
+      for i in range(202178):
+          for j in range(5):
+              frameid_coordinate_charname[i][j]=frameid_coordinate[i][j]
+          trackid=int(frameid_coordinate[i][5])
+          charid=int(Charid[trackid-1][1])
+          actorname=Acotranme[charid-1][1]
+          frameid_coordinate_charname[i][5]=actorname
 
-        return frameid_coordinate_charname
+      return frameid_coordinate_charname
 
-  ```
+```
 
   ## Result
 ![Image](https://github.com/wtepfenhart/BioSimVis/blob/master/ExperientImage/FaceImage.png)
